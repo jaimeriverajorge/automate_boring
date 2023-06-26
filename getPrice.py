@@ -3,10 +3,12 @@
 import bs4, requests
 
 def getPrice(url):
+    # pass in the URL, with headers to not trigger Amazon's Captcha
     res = requests.get(url,headers={
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36",
         'Accept-Language': 'en-US'
     })
+    # raise for status to check for any errors
     res.raise_for_status()
     soup = bs4.BeautifulSoup(res.text, 'html.parser')
     elems = soup.select('#corePrice_feature_div > div > span > span.a-offscreen')
